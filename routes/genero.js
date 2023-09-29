@@ -1,5 +1,8 @@
 const { Router } = require('express')
-const { createGenero } = require('../controllers/genero')
+const { 
+    createGenero, 
+    getGeneros, 
+    deleteGeneroByID } = require('../controllers/genero')
 
 const router = Router()
 
@@ -8,10 +11,10 @@ const router = Router()
  */
 router.post('/', createGenero)
 
-
 /**
  * Consultar todos los géneros
  */
+router.get('/', getGeneros)
 
 /**
  * Consultar un género por su ID
@@ -24,5 +27,6 @@ router.post('/', createGenero)
 /**
  * Borra un genero por su ID
  */
+router.delete('/:id', deleteGeneroByID)
 
 module.exports = router

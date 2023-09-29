@@ -36,6 +36,21 @@ const createGenero = async (req = request, res = response) => {
 /**
  * Consultar todos los géneros
  */
+const getGeneros = async (req = request, res = response) => {
+    
+    try{
+        const { estado } = req.query
+
+        const generos = await Genero.find({ estado })
+
+        return res.json(generos)
+
+    } catch(error) {
+        console.log(error)
+        return res.status(500).json({msj: error})
+    }
+
+}
 
 /**
  * Consultar un género por su ID
@@ -48,8 +63,19 @@ const createGenero = async (req = request, res = response) => {
 /**
  * Borra un genero por su ID
  */
-
+const deleteGeneroByID = async (req = request, res = response) => {
+    try{
+        const { id } = req.params
+        await Genero.findByIdAndDelete({ _id : id })
+        return res.status(204).json({})
+    } catch(error) {
+        console.log(error)
+        return res.status(500).json({msj: error})
+    }
+}
 
 module.exports = {
-    createGenero
+    createGenero,
+    getGeneros,
+    deleteGeneroByID
 }
